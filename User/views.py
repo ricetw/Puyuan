@@ -164,13 +164,17 @@ def share(request):  # 23.分享
 @ csrf_exempt
 def seeshare(request, type):  # 24.查看(X)
     if request.method == 'GET':
-        token = {request.headers["Authorization"].split(
-            ' ')[0]: request.headers["Authorization"].split(' ')[1]}
-        try:
-            if Session.objects.get(pk=token['Bearer']):
-                output = {'status': '0'}
-        except:
-            output = {'status': '1'}
+        # print(request.headers)
+        # print(request.GET)
+        # print(request.body)
+        # print(request.headers['sessionid'])
+        # token = {request.headers["Authorization"].split(
+        #     ' ')[0]: request.headers["Authorization"].split(' ')[1]}
+        # try:
+        #     if Session.objects.get(pk=token['Bearer']):
+        output = {'status': '0'}
+        # except:
+        #     output = {'status': '1'}
         return JsonResponse({'status': '0'}, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
@@ -203,8 +207,6 @@ def notification(request):  # 36.親友團通知
 @ csrf_exempt
 def registercheck(request):  # 38.註冊確認(OK)
     if request.method == 'GET':
-        token = {request.headers["Authorization"].split(
-            ' ')[0]: request.headers["Authorization"].split(' ')[1]}
         try:
             output = {"status": "0"}
             if list(UserProfile.objects.filter(account=request.GET['account'])) != []:
